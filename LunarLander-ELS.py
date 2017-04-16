@@ -69,13 +69,14 @@ for gen in range(GENERATION_LIMIT):
     success_count = 1
     if SUCCESS_MODE:
         track_success = [gen_eval]
-        while success_count < CONSECUTIVE_TARGET:
+        curr_mean = np.mean(track_success)
+        while success_count < CONSECUTIVE_TARGET and curr_mean >= \
+                SUCCESS_THRESHOLD:
             gen_eval = run_episode(env, W)
-            if gen_eval < SUCCESS_THRESHOLD:
-                break
             track_success.append(gen_eval)
+            curr_mean = np.mean(track_success)
             success_count += 1
-        gen_eval = np.mean(track_success)
+        gen_eval = curr_mean
 
     # Keep track of Returns
     R = np.zeros(POPULATION_SIZE)
@@ -94,13 +95,12 @@ for gen in range(GENERATION_LIMIT):
     W = new_W
     gen_mean = np.mean(R)
     if SUCCESS_MODE:
-        out = "Generation {}, Num Success: {}, Success Mean: {}, Population " \
-          "Mean: {}".format(gen, success_count, gen_eval, gen_mean)
+        out = "Generation {}, Success Count: {}, Success Mean: {}, " \
+              "Population Mean: {}"
+        out = out.format(gen, success_count, gen_eval, gen_mean)
     else:
-        out = \
-            "Generation {}, Return: {}, Population Mean: {}".format(gen,
-                                                                    gen_eval,
-                                                                    gen_mean)
+        out = "Generation {}, Return: {}, Population Mean: {}"
+        out = out.format(gen, gen_eval, gen_mean)
     print(out)
 
 env.close()
