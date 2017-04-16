@@ -13,7 +13,12 @@ DISPLAY_WEIGHTS = False  # Help debug weight update
 sigma = 0.1  # Noise standard deviation
 alpha = 0.00025  # Learning rate
 
-# Upload to openai?
+# Limit steps to enforce stopping early
+LIMIT_STEPS = True
+STEPS_LIMIT = 255  # Perform the DO_NOTHING_ACTION when step surpass
+DO_NOTHING_ACTION = 0  # Action to feed in to do nothing
+
+# Upload to OpenAI
 UPLOAD = False
 UPLOAD_GENERATION_INTERVAL = 10  # Generate a video at this interval
 SESSION_FOLDER = "/tmp/LunarLander-experiment-1"
@@ -33,13 +38,25 @@ def record_interval(n):
 
 
 def run_episode(environment, weight):
+    global LIMIT_STEPS
+    global STEPS_LIMIT
     obs = environment.reset()
     episode_reward = 0
     done = False
+    step = 0
+    if LIMIT_STEPS:
+        max_steps = STEPS_LIMIT
+    else:
+        max_steps = env.spec.tags.get(
+            'wrapper_config.TimeLimit.max_episode_steps')
     while not done:
-        action = np.matmul(weight.T, obs)
-        move = np.argmax(action)
+        if step < max_steps:
+            action = np.matmul(weight.T, obs)
+            move = np.argmax(action)
+        else:
+            move = DO_NOTHING_ACTION
         obs, reward, done, info = environment.step(move)
+        step += 1
         episode_reward += reward
     return episode_reward
 
