@@ -30,6 +30,10 @@ SUCCESS_THRESHOLD = 200
 CONSECUTIVE_TARGET = 100
 
 
+def extract_move(action):
+    return np.argmax(action)
+
+
 def record_interval(n):
     global UPLOAD_GENERATION_INTERVAL
     global POPULATION_SIZE
@@ -52,7 +56,7 @@ def run_episode(environment, weight):
     while not done:
         if step < max_steps:
             action = np.matmul(weight.T, obs)
-            move = np.argmax(action)
+            move = extract_move(action)
         else:
             move = DO_NOTHING_ACTION
         obs, reward, done, info = environment.step(move)
