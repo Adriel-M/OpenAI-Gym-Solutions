@@ -7,28 +7,30 @@ from gym import wrappers
 
 # GLOBAL SETTINGS
 RNG_SEED = 8
-ENVIRONMENT = "LunarLander-v2"
-POPULATION_SIZE = 100  # Population size
+# ENVIRONMENT = "CartPole-v0"
+ENVIRONMENT = "CartPole-v1"
+POPULATION_SIZE = 10  # Population size
 GENERATION_LIMIT = 100  # Max number of generations
 DISPLAY_WEIGHTS = False  # Help debug weight update
 RENDER = True  # Render the generation representative
 sigma = 0.1  # Noise standard deviation
-alpha = 0.00025  # Learning rate
+alpha = 0.000025  # Learning rate
 
 # Limit steps to enforce stopping early
-LIMIT_STEPS = True
-STEPS_LIMIT = 255  # Perform the DO_NOTHING_ACTION when step surpass
+LIMIT_STEPS = False
+STEPS_LIMIT = 200  # Perform the DO_NOTHING_ACTION when step surpass
 DO_NOTHING_ACTION = 0  # Action to feed in to do nothing
 
 # Upload to OpenAI
-UPLOAD = False
+UPLOAD = True
 UPLOAD_GENERATION_INTERVAL = 10  # Generate a video at this interval
-SESSION_FOLDER = "/tmp/LunarLander-experiment-1"
+SESSION_FOLDER = "/tmp/CartPole-experiment-1"
 API_KEY = ""
 
 # Success Mode (Settings to pass OpenAI's requirement)
 SUCCESS_MODE = True
-SUCCESS_THRESHOLD = 200
+# SUCCESS_THRESHOLD = 200
+SUCCESS_THRESHOLD = 475
 CONSECUTIVE_TARGET = 100
 
 

@@ -13,3 +13,9 @@ Start with some initial weights and generate weights for each member in the
  [1](https://gym.openai.com/evaluations/eval_CNyX7JcbSvepv5eb8wCsKg)
  [2](https://gym.openai.com/evaluations/eval_2EWkOozOSuULmn3cXcb1w)
  [3](https://gym.openai.com/evaluations/eval_Uz5XStCR4m6rpADrhfxg)
+
+**CartPole-v0**
+ [1](https://gym.openai.com/evaluations/eval_S86D3W2ZQoagd9lpEArL9g)
+
+**CartPole-v1**
+ [1](https://gym.openai.com/evaluations/eval_L0nIc9FQzKF7pcn60L7A)
