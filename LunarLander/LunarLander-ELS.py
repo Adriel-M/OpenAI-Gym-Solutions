@@ -7,6 +7,7 @@ from gym import wrappers
 
 # GLOBAL SETTINGS
 RNG_SEED = 8
+ENVIRONMENT = "LunarLander-v2"
 POPULATION_SIZE = 100  # Population size
 GENERATION_LIMIT = 100  # Max number of generations
 DISPLAY_WEIGHTS = False  # Help debug weight update
@@ -55,7 +56,7 @@ def run_episode(environment, weight):
             'wrapper_config.TimeLimit.max_episode_steps')
     while not done:
         if step < max_steps:
-            action = np.matmul(weight.T, obs)
+            action = np.matmul(weight, obs)
             move = extract_move(action)
         else:
             move = DO_NOTHING_ACTION
@@ -65,7 +66,7 @@ def run_episode(environment, weight):
     return episode_reward
 
 
-env = gym.make('LunarLander-v2')
+env = gym.make(ENVIRONMENT)
 if UPLOAD:
     if SUCCESS_MODE:
         env = wrappers.Monitor(env, SESSION_FOLDER)
@@ -77,10 +78,13 @@ env.seed(RNG_SEED)
 np.random.seed(RNG_SEED)
 
 input_size = env.observation_space.shape[0]
-output_size = env.action_space.n
+try:
+    output_size = env.action_space.shape[0]
+except AttributeError:
+    output_size = env.action_space.n
 
 # Initial weights
-W = np.zeros((input_size, output_size))
+W = np.zeros((output_size, input_size))
 
 for gen in range(GENERATION_LIMIT):
     # Measure performance per generation
@@ -102,7 +106,7 @@ for gen in range(GENERATION_LIMIT):
     # Keep track of Returns
     R = np.zeros(POPULATION_SIZE)
     # Generate noise
-    N = np.random.randn(POPULATION_SIZE, input_size, output_size)
+    N = np.random.randn(POPULATION_SIZE, output_size, input_size)
     for j in range(POPULATION_SIZE):
         W_ = W + sigma * N[j]
         R[j] = run_episode(env, W_)
@@ -110,7 +114,7 @@ for gen in range(GENERATION_LIMIT):
     # Update weights
     # Summation of episode_weight * episode_reward
     weighted_weights = np.matmul(N.T, R).T
-    new_W = W + alpha / (POPULATION_SIZE * sigma) * weighted_weights
+    new_W = W + (alpha / (POPULATION_SIZE * sigma)) * weighted_weights
     if DISPLAY_WEIGHTS:
         print(W)
     W = new_W
