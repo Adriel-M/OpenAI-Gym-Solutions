@@ -13,8 +13,8 @@ Perform gradient ascent after every episode on the weighted sum at time t,
 the probability of taking the particular action and the expected total 
 discounted reward following the current policy. A discounted reward is used
 to enforce finishing early. Learn more about REINFORCE: Monte Carlo Policy 
-Gradient by reading Reinforcement Learning: An Introduction (p271) by Sutton
- & Barto.
+Gradient by reading Reinforcement Learning: An Introduction (chapter 13.3) by 
+Sutton & Barto [here](http://incompleteideas.net/sutton/book/).
 
 # Evaluations
 **LunarLander-v2**

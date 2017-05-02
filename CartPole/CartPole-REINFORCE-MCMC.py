@@ -1,6 +1,6 @@
 # REINFORCE: Monte Carlo Policy Gradient Implementation
-# Learn more from Reinforcement Learning: An Introduction (p271)
-# by Sutton & Barto
+# Learn more from Reinforcement Learning: An Introduction (Chapter 13.3)
+# by Sutton & Barto at http://incompleteideas.net/sutton/book/
 
 import tensorflow as tf
 import gym
