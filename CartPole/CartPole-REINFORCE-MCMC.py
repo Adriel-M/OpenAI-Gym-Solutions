@@ -1,3 +1,7 @@
+# REINFORCE: Monte Carlo Policy Gradient Implementation
+# Learn more from Reinforcement Learning: An Introduction (p271)
+# by Sutton & Barto
+
 import tensorflow as tf
 import gym
 import numpy as np
@@ -8,11 +12,11 @@ from gym import wrappers
 RNG_SEED = 8
 ENVIRONMENT = "CartPole-v0"
 # ENVIRONMENT = "CartPole-v1"
-MAX_EPISODES = 2000
+MAX_EPISODES = 1000
 HIDDEN_LAYER = True
 HIDDEN_SIZE = 6
 DISPLAY_WEIGHTS = False  # Help debug weight update
-RENDER = False  # Render the generation representative
+RENDER = False  # Render the episode
 gamma = 0.99  # Discount per step
 alpha = 0.02205  # Learning rate
 
@@ -22,8 +26,6 @@ EPISODE_INTERVAL = 50  # Generate a video at this interval
 SESSION_FOLDER = "/tmp/CartPole-experiment-1"
 API_KEY = ""
 
-SUCCESS_THRESHOLD = 195
-# SUCCESS_THRESHOLD = 475
 CONSECUTIVE_TARGET = 100
 
 
