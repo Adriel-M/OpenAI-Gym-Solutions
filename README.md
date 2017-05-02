@@ -10,11 +10,12 @@ Start with some initial weights and generate weights for each member in the
 
 **REINFORCE: Monte Carlo Policy Gradient**
 Perform gradient ascent after every episode on the weighted sum at time t, 
-the probability of taking the particular action and the expected total 
-discounted reward following the current policy. A discounted reward is used
-to enforce finishing early. Learn more about REINFORCE: Monte Carlo Policy 
-Gradient by reading Reinforcement Learning: An Introduction (chapter 13.3) by 
-Sutton & Barto [here](http://incompleteideas.net/sutton/book/).
+the probability of taking the particular action multiplied by the expected 
+total discounted reward following the current policy. A discounted reward is 
+used to enforce finishing early. Learn more about REINFORCE: Monte Carlo 
+Policy Gradient by reading Reinforcement Learning: An Introduction (chapter
+13.3) by Sutton & Barto [here](http://incompleteideas.net/sutton/book/). 
+(Book is unfinished and chapters order may change)
 
 # Evaluations
 **LunarLander-v2**
